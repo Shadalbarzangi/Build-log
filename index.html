@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shad Albarzangi — Build Log</title>
+<meta name="description" content="Things Shad Albarzangi has built with SQL, Databricks and AI tools: in a revenue and billing role, at university, and on his own time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDEFE9;
+    --paper-2:#E5E9E0;
+    --ink:#1D2B23;
+    --ink-soft:#4E5D53;
+    --rule:#C4CCBF;
+    --correction:#A7332A;
+    --measure:64ch;
+  }
+
+  *{box-sizing:border-box}
+
+  html{-webkit-text-size-adjust:100%}
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Spectral",Georgia,"Times New Roman",serif;
+    font-weight:400;
+    font-size:1.0625rem;
+    line-height:1.65;
+  }
+
+  .sheet{
+    max-width:54rem;
+    margin:0 auto;
+    padding:clamp(2.5rem,6vw,5.5rem) clamp(1.25rem,5vw,3rem) 4rem;
+  }
+
+  a{color:inherit;text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:1px}
+  a:hover{border-bottom-color:var(--ink)}
+  :focus-visible{outline:2px solid var(--correction);outline-offset:3px}
+
+  /* ---------- masthead ---------- */
+
+  .stamp{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:.72rem;
+    letter-spacing:.06em;
+    color:var(--ink-soft);
+    margin:0 0 2.25rem;
+  }
+
+  h1{
+    font-weight:600;
+    font-size:clamp(2.6rem,9vw,4.25rem);
+    line-height:1.02;
+    letter-spacing:-.02em;
+    margin:0 0 1.5rem;
+  }
+
+  .intro{
+    max-width:var(--measure);
+    font-size:1.125rem;
+    color:var(--ink-soft);
+    margin:0 0 2rem;
+  }
+  .intro strong{font-weight:600;color:var(--ink)}
+
+  .contact{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-wrap:wrap;
+    gap:.4rem 1.75rem;
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:.8rem;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- capability table ---------- */
+
+  .toolkit{
+    margin:3.5rem 0 0;
+    border-top:1px solid var(--rule);
+  }
+  .toolkit h2{
+    font-size:1rem;
+    font-weight:600;
+    font-style:italic;
+    margin:1.5rem 0 1.25rem;
+  }
+  .toolkit dl{
+    margin:0;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));
+    gap:1.5rem 2rem;
+  }
+  .toolkit dt{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:.72rem;
+    letter-spacing:.06em;
+    color:var(--ink-soft);
+    margin-bottom:.35rem;
+  }
+  .toolkit dd{
+    margin:0;
+    font-size:.95rem;
+    line-height:1.5;
+  }
+
+  /* ---------- filters ---------- */
+
+  .filters{
+    margin:3.5rem 0 0;
+    padding:1.25rem 0 0;
+    border-top:1px solid var(--rule);
+    display:flex;
+    flex-wrap:wrap;
+    gap:.25rem 1.5rem;
+  }
+  .filters button{
+    appearance:none;
+    background:none;
+    border:0;
+    border-bottom:2px solid transparent;
+    padding:.2rem 0;
+    font:inherit;
+    font-size:1rem;
+    color:var(--ink-soft);
+    cursor:pointer;
+  }
+  .filters button:hover{color:var(--ink)}
+  .filters button[aria-pressed="true"]{
+    color:var(--ink);
+    border-bottom-color:var(--correction);
+  }
+
+  .note{
+    max-width:var(--measure);
+    font-size:.9rem;
+    font-style:italic;
+    color:var(--ink-soft);
+    margin:1.75rem 0 0;
+  }
+
+  /* ---------- entries ---------- */
+
+  .log{margin:2.5rem 0 0}
+
+  .entry{
+    display:grid;
+    grid-template-columns:7rem 1fr;
+    gap:0 2rem;
+    padding:2rem 0;
+    border-top:1px solid var(--rule);
+  }
+  .entry[hidden]{display:none}
+
+  .period{
+    margin:.35rem 0 0;
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:.75rem;
+    color:var(--ink-soft);
+    font-variant-numeric:tabular-nums;
+  }
+
+  .entry h3{
+    margin:0 0 .6rem;
+    font-size:1.3rem;
+    font-weight:600;
+    line-height:1.25;
+    letter-spacing:-.01em;
+  }
+  .entry p{margin:0 0 .9rem;max-width:var(--measure)}
+  .entry p:last-of-type{margin-bottom:.9rem}
+
+  .built{
+    color:var(--ink-soft);
+    font-size:.95rem;
+  }
+  .built em{font-style:italic;color:var(--ink)}
+
+  .tags{
+    list-style:none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-wrap:wrap;
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:.72rem;
+    color:var(--ink-soft);
+  }
+  .tags li{padding:0 .7rem;border-left:1px solid var(--rule)}
+  .tags li:first-child{padding-left:0;border-left:0}
+
+  /* ---------- foot ---------- */
+
+  .foot{
+    margin:3.5rem 0 0;
+    padding-top:1.25rem;
+    border-top:1px solid var(--rule);
+    font-size:.85rem;
+    color:var(--ink-soft);
+    max-width:var(--measure);
+  }
+
+  @media (max-width:34rem){
+    .entry{grid-template-columns:1fr;gap:.5rem}
+    .period{margin:0}
+  }
+
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#151A17;
+      --paper-2:#1D231F;
+      --ink:#E6EAE2;
+      --ink-soft:#9AA69D;
+      --rule:#33413A;
+      --correction:#D4675C;
+    }
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <p class="stamp">Build log — updated September 2026</p>
+
+  <h1>Shad Albarzangi</h1>
+
+  <p class="intro">I work in <strong>revenue and billing</strong>, and most of what I build starts with a number
+  someone could not explain. Some of it is production work in my student role, some is coursework from my
+  Business Administration degree at Aalborg University, and some is me solving my own problems on a weekend.</p>
+
+  <ul class="contact">
+    <li>Aarhus, Denmark</li>
+    <li><a href="mailto:shad.albarzangi@hotmail.com">shad.albarzangi@hotmail.com</a></li>
+    <li><a href="tel:+4540559996">+45 40 55 99 96</a></li>
+  </ul>
+
+  <section class="toolkit">
+    <h2>What I work with</h2>
+    <dl>
+      <div>
+        <dt>Finance</dt>
+        <dd>Reconciliation, revenue recognition, invoicing, contract review</dd>
+      </div>
+      <div>
+        <dt>Data</dt>
+        <dd>SQL, Databricks, Power BI, Excel, data quality</dd>
+      </div>
+      <div>
+        <dt>AI</dt>
+        <dd>Prompting, packaged Claude skills, process automation</dd>
+      </div>
+      <div>
+        <dt>Also</dt>
+        <dd>Python, ERP systems, Danish and English</dd>
+      </div>
+    </dl>
+  </section>
+
+  <nav class="filters" aria-label="Filter entries">
+    <button type="button" data-track="all" aria-pressed="true">Everything</button>
+    <button type="button" data-track="work" aria-pressed="false">At work</button>
+    <button type="button" data-track="uni" aria-pressed="false">At university</button>
+    <button type="button" data-track="own" aria-pressed="false">On my own time</button>
+  </nav>
+
+  <p class="note">Work entries are described at capability level. Employer, figures and internal logic are
+  deliberately left out.</p>
+
+  <div class="log">
+
+    <article class="entry" data-track="work">
+      <p class="period">2026</p>
+      <div>
+        <h3>Billing error found in a dashboard, then closed for good</h3>
+        <p>A set of customers was being charged twice, and nothing in the monthly close was shaped to catch it.
+        I built a dashboard that put the duplicate pattern in plain view, worked the cases through to correction,
+        and the control that followed now runs every quarter instead of depending on someone noticing.</p>
+        <p class="built"><em>Built with:</em> SQL against contract and invoice data in Databricks, with the
+        exception logic written so a reviewer sees why a line was flagged, not just that it was.</p>
+        <ul class="tags"><li>Databricks</li><li>SQL</li><li>Internal control</li></ul>
+      </div>
+    </article>
+
+    <article class="entry" data-track="work">
+      <p class="period">2025–</p>
+      <div>
+        <h3>Monthly reconciliation that flags disagreement instead of hiding it</h3>
+        <p>Reconciling accounts between the ERP system and the reporting layer each month. The useful part is
+        not the tick-off; it is that the sources are compared in a way that surfaces where they disagree, so the
+        reported figure is something checked rather than assumed.</p>
+        <p class="built"><em>Built with:</em> ERP exports and SQL queries, reconciled in Excel with the
+        break-out kept in the same place every month so the trend is readable.</p>
+        <ul class="tags"><li>Reconciliation</li><li>ERP</li><li>Excel</li></ul>
+      </div>
+    </article>
+
+    <article class="entry" data-track="work">
+      <p class="period">2025–</p>
+      <div>
+        <h3>Invoicing runs and the billing questions that follow them</h3>
+        <p>Quality-checking invoices before they go out and handling the customer billing enquiries that come
+        back. Recurring questions are worth more than individual answers: where the same dispute kept appearing,
+        I pushed the fix back into how the invoice is produced rather than answering it again.</p>
+        <p class="built"><em>Built with:</em> ERP billing workflows, contract terms read properly, and notes kept
+        on which disputes repeat.</p>
+        <ul class="tags"><li>Invoicing</li><li>Contract review</li><li>Process change</li></ul>
+      </div>
+    </article>
+
+    <article class="entry" data-track="work">
+      <p class="period">2026</p>
+      <div>
+        <h3>Billing reminder process, rebuilt as an AI workflow</h3>
+        <p>A recurring reminder run used to be worked through by hand, record by record. We rebuilt it as a
+        prompt-driven workflow that pulls the data, applies the rules and drafts the output, so a person reviews
+        the result instead of assembling it.</p>
+        <p class="built"><em>Built with:</em> structured prompts with explicit rule sets and a fixed output
+        format, tested against real cases until the edge cases stopped leaking through.</p>
+        <ul class="tags"><li>Claude</li><li>Prompting</li><li>Automation</li></ul>
+      </div>
+    </article>
+
+    <article class="entry" data-track="work">
+      <p class="period">2026</p>
+      <div>
+        <h3>An agent that watches for hardware coming back</h3>
+        <p>Equipment sometimes returns after it has already been shipped on to a new customer, which quietly
+        breaks what is being billed. The agent recognises the pattern, posts it into Slack on its own, and clears
+        items once they are resolved, so nobody has to keep the list alive by hand.</p>
+        <p class="built"><em>Built with:</em> a packaged Claude skill carrying its own instructions and reference
+        logic, so the behaviour is versioned rather than remembered. Validated against a fixed set of known cases
+        before rollout, then handed over to the rest of the team.</p>
+        <ul class="tags"><li>Claude agents</li><li>Slack</li><li>Anomaly detection</li></ul>
+      </div>
+    </article>
+
+    <article class="entry" data-track="work">
+      <p class="period">2026</p>
+      <div>
+        <h3>Dashboards that made a data cleanup possible</h3>
+        <p>Terminated and cancelled units were not represented correctly, so the revenue picture was not either.
+        We built dashboards that made the discrepancies visible, and the cleanup that followed corrected what the
+        business was actually reading from.</p>
+        <p class="built"><em>Built with:</em> SQL against unit and contract data in Databricks, surfaced so
+        colleagues could act on it without asking anyone to re-run a query.</p>
+        <ul class="tags"><li>Databricks</li><li>SQL</li><li>Data quality</li></ul>
+      </div>
+    </article>
+
+    <article class="entry" data-track="work">
+      <p class="period">2026</p>
+      <div>
+        <h3>Special customer terms, collected in one place</h3>
+        <p>Contractual terms that deviate from the standard were scattered across sources, which made them easy
+        to miss and easy to apply inconsistently. We consolidated them into a single dashboard and normalised the
+        underlying data so the same term looks the same across customers.</p>
+        <p class="built"><em>Built with:</em> SQL modelling in Databricks, with the source data cleaned before it
+        reaches the dashboard layer rather than patched inside it.</p>
+        <ul class="tags"><li>Databricks</li><li>Data modelling</li><li>Contract terms</li></ul>
+      </div>
+    </article>
+
+    <article class="entry" data-track="work">
+      <p class="period">2026</p>
+      <div>
+        <h3>Validating the data underneath ARR</h3>
+        <p>ARR is only as good as the contract and unit data it is calculated from. This validates those inputs,
+        so the reported number is something checked rather than assumed.</p>
+        <p class="built"><em>Built with:</em> reconciliation logic that flags where sources disagree instead of
+        silently picking one of them.</p>
+        <ul class="tags"><li>SQL</li><li>Reconciliation</li><li>Revenue data</li></ul>
+      </div>
+    </article>
+
+    <article class="entry" data-track="uni">
+      <p class="period">2026</p>
+      <div>
+        <h3>Case study: what happens when a finance team adopts AI</h3>
+        <p>An examined qualitative study of AI adoption inside a finance department — interviews with the people
+        doing the work, coded and analysed rather than summarised. The interesting finding was rarely the tool
+        itself; it was which parts of a process people were willing to stop owning.</p>
+        <p class="built"><em>Built with:</em> semi-structured interviews, systematic coding, and a method section
+        that can defend why these informants and not others.</p>
+        <ul class="tags"><li>Qualitative method</li><li>Interviews</li><li>AI adoption</li></ul>
+      </div>
+    </article>
+
+    <article class="entry" data-track="uni">
+      <p class="period">2023–2027</p>
+      <div>
+        <h3>Business Administration, Aalborg University</h3>
+        <p>Final year, graduating 2027, heading for an MSc in Finance. Strongest work in financial and management
+        accounting, and in the courses where a model has to survive contact with real numbers: loan and mortgage
+        calculation, cost structures, operations and supply chain planning.</p>
+        <p class="built"><em>Also:</em> McKinsey Forward Learning Programme, 2026.</p>
+        <ul class="tags"><li>Accounting</li><li>Corporate finance</li><li>Operations</li></ul>
+      </div>
+    </article>
+
+    <article class="entry" data-track="own">
+      <p class="period">2026</p>
+      <div>
+        <h3>Poisson models for football matches</h3>
+        <p>A hobby that turned into a modelling exercise: estimating goal, corner and card distributions from
+        both teams' recent form and the appointed referee's tendencies, then comparing the implied probability
+        with the price on offer. It is a good way to learn what an edge actually has to look like before it is
+        real.</p>
+        <p class="built"><em>Built with:</em> Poisson and probability estimation, historical match and referee
+        data, and a fixed analysis structure so every fixture is assessed the same way.</p>
+        <ul class="tags"><li>Poisson</li><li>Probability</li><li>Python</li></ul>
+      </div>
+    </article>
+
+    <article class="entry" data-track="own">
+      <p class="period">2026</p>
+      <div>
+        <h3>Risk tool and Monte Carlo simulation in Python</h3>
+        <p>Built to understand portfolio risk from the inside rather than from a slide: simulate a large number
+        of paths, look at the distribution of outcomes instead of the average, and see how quickly compounding
+        assumptions change the answer.</p>
+        <p class="built"><em>Built with:</em> Python, simulated return paths, and outputs kept simple enough to
+        argue with.</p>
+        <ul class="tags"><li>Python</li><li>Monte Carlo</li><li>Risk</li></ul>
+      </div>
+    </article>
+
+    <article class="entry" data-track="own">
+      <p class="period">2026</p>
+      <div>
+        <h3>A packaged AI skill for job applications</h3>
+        <p>Applying for finance roles is a repeatable process, so I made it one. A packaged Claude skill that
+        holds my verified facts and confirmed numbers, writes the application against a specific posting, scores
+        the keyword match against it, and refuses to invent a metric I have not confirmed.</p>
+        <p class="built"><em>Built with:</em> a versioned skill with its own rules and reference files, so the
+        behaviour is repeatable instead of re-explained every time.</p>
+        <ul class="tags"><li>Claude skills</li><li>Rule design</li><li>Versioning</li></ul>
+      </div>
+    </article>
+
+    <article class="entry" data-track="own">
+      <p class="period">2026</p>
+      <div>
+        <h3>Internship tracker, ranked by realistic odds</h3>
+        <p>Instead of a wishlist, a ranked view of European finance internships weighted by how realistic each
+        one is from where I stand now — Nordic and Danish names in the near term, London longer term — with
+        deadlines and requirements in one place so the timing is a decision rather than an accident.</p>
+        <p class="built"><em>Built with:</em> structured research, an explicit scoring rule for fit and odds, and
+        a review cadence.</p>
+        <ul class="tags"><li>Research</li><li>Prioritisation</li><li>Tracking</li></ul>
+      </div>
+    </article>
+
+  </div>
+
+  <footer class="foot">
+    <p>Built as a single HTML file. No dependencies, no tracking.
+    <a href="mailto:shad.albarzangi@hotmail.com">shad.albarzangi@hotmail.com</a></p>
+  </footer>
+
+</main>
+
+<script>
+  const buttons = document.querySelectorAll('.filters button');
+  const entries = document.querySelectorAll('.entry');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const track = button.dataset.track;
+      buttons.forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+      entries.forEach(entry => {
+        entry.hidden = track !== 'all' && entry.dataset.track !== track;
+      });
+    });
+  });
+</script>
+</body>
+</html>
